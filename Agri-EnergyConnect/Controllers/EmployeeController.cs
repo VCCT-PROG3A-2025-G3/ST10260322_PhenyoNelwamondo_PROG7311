@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Agri_EnergyConnect.Controllers
 {
-    public class EmployeeDashboardController : Controller
+    public class EmployeeController : Controller
     {
         [Authorize(Roles = "Employee")] //This makes it specific to employees only
         public IActionResult Index()

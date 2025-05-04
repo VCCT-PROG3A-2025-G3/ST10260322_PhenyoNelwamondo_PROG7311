@@ -7,52 +7,99 @@ namespace Agri_EnergyConnect.Controllers
 {
     public class AccountController : Controller
     {
-        
-            private readonly UserManager<IdentityUser> _userManager;
-            private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-            public AccountController(
-                UserManager<IdentityUser> userManager,
-                SignInManager<IdentityUser> signInManager)
-            {
-                _userManager = userManager;
-                _signInManager = signInManager;
-            }
-
-            [HttpGet]
-            public IActionResult Register()
-            {
-                ViewBag.Roles = new List<SelectListItem>
+        public AccountController(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager)
         {
-            new SelectListItem { Value = "Farmer", Text = "Farmer" },
-            new SelectListItem { Value = "Employee", Text = "Employee" }
-        };
-                return View();
-            }
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
 
-            [HttpPost]
-            public async Task<IActionResult> Register(RegisterViewModel model)
+        [HttpGet]
+        public IActionResult Register()
+        {
+            ViewBag.Roles = new List<SelectListItem>
             {
-                if (ModelState.IsValid)
+                new SelectListItem { Value = "Farmer", Text = "Farmer" },
+                new SelectListItem { Value = "Employee", Text = "Employee" }
+            };
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
                 {
-                    var user = new IdentityUser { UserName = model.Email, Email = model.Email };
-                    var result = await _userManager.CreateAsync(user, model.Password);
+                    await _userManager.AddToRoleAsync(user, model.Role);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    if (result.Succeeded)
-                    {
-                        await _userManager.AddToRoleAsync(user, model.Role);
-
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-
-                        return RedirectToAction("Index", model.Role + "Dashboard");
-                    }
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                    // Changed this line to redirect to correct controller names
+                    return RedirectToAction("Index", model.Role);
                 }
-                return View(model);
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
-        
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public IActionResult Login(string? returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
+        {
+            returnUrl ??= Url.Content("~/");
+
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+
+                if (result.Succeeded)
+                {
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    // Redirect based on role
+                    if (roles.Contains("Farmer"))
+                    {
+                        return RedirectToAction("Index", "Farmer");
+                    }
+                    else if (roles.Contains("Employee"))
+                    {
+                        return RedirectToAction("Index", "Employee");
+                    }
+
+                    return LocalRedirect(returnUrl);
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
