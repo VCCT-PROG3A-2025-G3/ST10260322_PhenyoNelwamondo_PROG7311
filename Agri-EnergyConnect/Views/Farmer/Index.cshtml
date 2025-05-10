@@ -4,35 +4,65 @@
 }
 
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8">
-            <h1 class="display-4">Welcome Farmer!</h1>
+    <!-- Hero Section with Farmer Illustration -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6">
+            <h1 class="display-4 text-success">Welcome Farmer!</h1>
             <p class="lead">Manage your agricultural products here</p>
-        </div>
-        <div class="col-md-4 text-end">
-            <a asp-action="AddProduct" class="btn btn-success">
+            <a asp-action="AddProduct" class="btn btn-success btn-lg">
                 <i class="bi bi-plus-circle"></i> Add New Product
             </a>
         </div>
+        <div class="col-md-6 text-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3069/3069172.png"
+                 alt="Happy Farmer Illustration"
+                 style="max-height: 200px"
+                 class="img-fluid">
+        </div>
     </div>
 
-    <hr>
+    <hr class="mb-4">
 
     @if (Model.Any())
     {
+        <!-- Product Cards with Category Icons -->
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach (var product in Model)
             {
                 <div class="col">
-                    <div class="card h-100 shadow-sm">
+                    <div class="card h-100 shadow-sm border-success">
+                        <div class="card-header bg-success bg-opacity-10">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">@product.Name</h5>
+                                @{
+                                    var iconClass = product.Category.ToLower() switch
+                                    {
+                                        "fruits" => "bi-apple",
+                                        "vegetables" => "bi-carrot",
+                                        "grains" => "bi-wheat",
+                                        "dairy" => "bi-cup-straw",
+                                        "poultry" => "bi-egg-fried",
+                                        _ => "bi-basket"
+                                    };
+                                }
+                                <i class="bi @iconClass fs-4 text-success"></i>
+                            </div>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">@product.Name</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@product.Category</h6>
-                            <p class="card-text">
-                                <small class="text-muted">
-                                    Produced: @product.ProductionDate.ToString("d")
-                                </small>
-                            </p>
+                            <div class="d-flex justify-content-between align-items-end">
+                                <div>
+                                    <span class="badge bg-success bg-opacity-25 text-success">@product.Category</span>
+                                    <p class="card-text mt-2">
+                                        <small class="text-muted">
+                                            <i class="bi bi-calendar-date"></i>
+                                            @product.ProductionDate.ToString("MMM dd, yyyy")
+                                        </small>
+                                    </p>
+                                </div>
+                                <img src="https://cdn-icons-png.flaticon.com/512/6869/6869632.png"
+                                     alt="Product icon"
+                                     style="width: 50px; opacity: 0.7">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -41,8 +71,34 @@
     }
     else
     {
-        <div class="alert alert-info">
-            You haven't added any products yet. Click "Add New Product" to get started!
+        
+        <div class="text-center py-5">
+            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png"
+                 alt="Empty products illustration"
+                 style="max-height: 150px"
+                 class="mb-4">
+            <div class="alert alert-info bg-success bg-opacity-10 border-success">
+                <h4 class="alert-heading">No Products Yet!</h4>
+                <p>Get started by adding your first agricultural product</p>
+                <hr>
+                <a asp-action="AddProduct" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Add Product
+                </a>
+            </div>
         </div>
     }
 </div>
+
+<style>
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(40, 167, 69, 0.1) !important;
+    }
+    .card-header {
+        border-bottom: 1px solid rgba(40, 167, 69, 0.2);
+    }
+</style>
