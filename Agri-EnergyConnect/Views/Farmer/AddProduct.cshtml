@@ -26,10 +26,7 @@
 
                 <div class="form-group mb-3">
                     <label asp-for="ProductionDate" class="control-label"></label>
-                    <input asp-for="ProductionDate" class="form-control"
-                           type="date"
-                           min="@DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd")"
-                           max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <input asp-for="ProductionDate" class="form-control" id="productionDatePicker" />
                     <span asp-validation-for="ProductionDate" class="text-danger"></span>
                 </div>
 
@@ -44,8 +41,25 @@
     </div>
 </div>
 
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+}
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("#productionDatePicker", {
+                dateFormat: "Y-m-d",
+                minDate: new Date().fp_incr(-3650), // 10 years ago
+                maxDate: "today",
+                allowInput: true,
+                defaultDate: null, // Force selection
+                disableMobile: true // Better desktop experience
+            });
+        });
+    </script>
 }
