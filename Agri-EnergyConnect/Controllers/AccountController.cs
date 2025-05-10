@@ -7,12 +7,12 @@ namespace Agri_EnergyConnect.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public AccountController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -34,7 +34,14 @@ namespace Agri_EnergyConnect.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Name = model.Name,
+                    Surname = model.Surname
+                };
+
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -42,7 +49,6 @@ namespace Agri_EnergyConnect.Controllers
                     await _userManager.AddToRoleAsync(user, model.Role);
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    // Changed this line to redirect to correct controller names
                     return RedirectToAction("Index", model.Role);
                 }
                 foreach (var error in result.Errors)
@@ -50,9 +56,16 @@ namespace Agri_EnergyConnect.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
+            // Repopulate roles if we need to return the view
+            ViewBag.Roles = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "Farmer", Text = "Farmer" },
+                new SelectListItem { Value = "Employee", Text = "Employee" }
+            };
+
             return View(model);
         }
-
 
         [HttpGet]
         public IActionResult Login(string? returnUrl = null)
@@ -100,6 +113,5 @@ namespace Agri_EnergyConnect.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
     }
 }
