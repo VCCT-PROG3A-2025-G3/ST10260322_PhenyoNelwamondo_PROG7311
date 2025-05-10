@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Agri_EnergyConnect.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Agri_EnergyConnect.Data
@@ -10,6 +11,8 @@ namespace Agri_EnergyConnect.Data
             : base(options)
         {
         }
+
+        public DbSet<Product> Products { get; set; }
 
     }
 }
