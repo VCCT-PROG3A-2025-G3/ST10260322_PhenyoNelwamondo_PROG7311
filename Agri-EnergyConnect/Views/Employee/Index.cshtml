@@ -5,14 +5,26 @@
 <h1>Employee Dashboard</h1>
 
 <div class="row mt-4">
-    <div class="col-md-6">
+    <div class="col-md-6 mb-4">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-success text-white">
                 <h5>Farmer Management</h5>
             </div>
             <div class="card-body">
                 <p>Add new farmers to the system</p>
-                <a asp-action="AddFarmer" class="btn btn-primary">Add New Farmer</a>
+                <a asp-action="AddFarmer" class="btn btn-success">Add New Farmer</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5>Product Management</h5>
+            </div>
+            <div class="card-body">
+                <p>View farmer products</p>
+                <a asp-action="SelectFarmer" class="btn btn-primary">View Farmer Products</a>
             </div>
         </div>
     </div>

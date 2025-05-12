@@ -10,16 +10,17 @@ namespace Agri_EnergyConnect.Models
         public int Id { get; set; }
 
         [Required]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string? Category { get; set; }
+        public string Category { get; set; }
 
         [Required]
         public DateTime ProductionDate { get; set; }
 
-        [ForeignKey("User")] //This will link the product to the user that is currently logged in. 
-        public string? UserId { get; set; }
-        public IdentityUser? User { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+
+        public ApplicationUser User { get; set; } // Changed from IdentityUser to ApplicationUser
     }
 }

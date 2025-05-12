@@ -1,0 +1,21 @@
+﻿@model Agri_EnergyConnect.Models.FarmerProductsViewModel
+@{
+    ViewData["Title"] = "SelectFarmer";
+}
+
+<h1>Select Farmer</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="list-group">
+            @foreach (var farmer in Model.Farmers)
+            {
+                <a asp-action="ViewFarmerProducts"
+                   asp-route-farmerId="@farmer.Id"
+                   class="list-group-item list-group-item-action">
+                    @farmer.Name @farmer.Surname (@farmer.Email)
+                </a>
+            }
+        </div>
+    </div>
+</div>
