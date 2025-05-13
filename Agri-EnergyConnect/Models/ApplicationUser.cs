@@ -8,6 +8,8 @@ namespace Agri_EnergyConnect.Models
         public string Name { get; set; }
         public string Surname { get; set; }
 
-       
+        public virtual ICollection<Product> Products { get; set; }
+
+
     }
 }

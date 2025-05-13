@@ -1,65 +1,53 @@
-﻿@model Product
+﻿@model Agri_EnergyConnect.Models.Product
 @{
-    ViewData["Title"] = "Add New Product";
+    ViewData["Title"] = "Add Product";
 }
 
-<div class="container mt-4">
+<div class="container">
     <h2>Add New Product</h2>
-    <hr>
 
-    <div class="row">
-        <div class="col-md-6">
-            <form asp-action="AddProduct">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                <div class="form-group mb-3">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label asp-for="Category" class="control-label"></label>
-                    <input asp-for="Category" class="form-control" />
-                    <span asp-validation-for="Category" class="text-danger"></span>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label asp-for="ProductionDate" class="control-label"></label>
-                    <input asp-for="ProductionDate" class="form-control" id="productionDatePicker" />
-                    <span asp-validation-for="ProductionDate" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-save"></i> Save Product
-                    </button>
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
-        </div>
+    <!-- Improved validation summary -->
+    <div class="alert alert-danger @(ViewData.ModelState.IsValid ? "d-none" : "")">
+        <h5>Please fix these errors:</h5>
+        <div asp-validation-summary="All"></div>
     </div>
-</div>
 
-@section Styles {
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-}
+    <form asp-action="AddProduct" method="post">
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Category" class="form-label"></label>
+            <input asp-for="Category" class="form-control" />
+            <span asp-validation-for="Category" class="text-danger small"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <label asp-for="ProductionDate" class="form-label"></label>
+            <input asp-for="ProductionDate" type="date" class="form-control"
+                   max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            <span asp-validation-for="ProductionDate" class="text-danger small"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add Product</button>
+    </form>
+</div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script>
+        // Set default date to today
         document.addEventListener('DOMContentLoaded', function() {
-            flatpickr("#productionDatePicker", {
-                dateFormat: "Y-m-d",
-                minDate: new Date().fp_incr(-3650), // 10 years ago
-                maxDate: "today",
-                allowInput: true,
-                defaultDate: null, // Force selection
-                disableMobile: true // Better desktop experience
-            });
+            const dateInput = document.querySelector('#ProductionDate');
+            if (dateInput && !dateInput.value) {
+                dateInput.value = new Date().toISOString().split('T')[0];
+            }
         });
     </script>
 }

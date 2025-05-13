@@ -4,35 +4,48 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Agri_EnergyConnect.Controllers
 {
-    [Authorize(Roles = "Farmer")] //Ensures only farmers can access the logic in this controller
+    [Authorize(Roles = "Farmer")]
     public class FarmerController : Controller
     {
-        private readonly ApplicationDbContext _context; //This allows connection with the database
-        private readonly UserManager<ApplicationUser> _userManager; //User Manager
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<FarmerController> _logger;
 
-
-        //Constructor for this controller
-        public FarmerController( ApplicationDbContext context, UserManager<ApplicationUser> userManager) 
+        public FarmerController(
+            ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            ILogger<FarmerController> logger)
         {
             _context = context;
             _userManager = userManager;
+            _logger = logger;
         }
-
 
         public async Task<IActionResult> Index()
         {
-            var user = await _userManager.GetUserAsync(User); //Gets the farmer thats currently logged in
-            var products = await _context.Products 
-                .Where(p => p.UserId == user.Id) //This ensures farmer can only see tehir own products
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                _logger.LogError("No user found for index view");
+                return Challenge();
+            }
+
+            _logger.LogInformation("Loading products for {UserId}", user.Id);
+
+            var products = await _context.Products
+                .Where(p => p.UserId == user.Id)
+                .OrderByDescending(p => p.ProductionDate)
                 .ToListAsync();
 
-            return View(products); //This will allow farmers to see their own products in the dashboard
+            return View(products);
         }
-
-
 
         [HttpGet]
         public IActionResult AddProduct()
@@ -40,22 +53,47 @@ namespace Agri_EnergyConnect.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> AddProduct(Product product)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddProduct([Bind("Name,Category,ProductionDate")] Product productInput)
         {
-            if (ModelState.IsValid) //This checks if all form fields are correct first then the following can happen:
+
+            _logger.LogInformation("ModelState.IsValid: {IsValid}", ModelState.IsValid);
+            _logger.LogInformation("ModelState Errors: {@Errors}",
+                ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    ));
+
+            if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync(User);//This gets teh ID of the farmer 
-                product.UserId = user.Id; //This line links the product to the user(farmer) who is currently entering the form
+                try
+                {
+                    var user = await _userManager.GetUserAsync(User);
+                    if (user == null) return Unauthorized();
 
-                //This is the code that saves the product to the database
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
+                    var product = new Product
+                    {
+                        Name = productInput.Name,
+                        Category = productInput.Category,
+                        ProductionDate = productInput.ProductionDate,
+                        UserId = user.Id // Set programmatically
+                    };
 
-                return RedirectToAction("Index");
+                    _context.Products.Add(product);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error saving product");
+                    ModelState.AddModelError("", "Error saving product");
+                }
             }
-            return View(product);
+            return View(productInput);
         }
     }
 }
