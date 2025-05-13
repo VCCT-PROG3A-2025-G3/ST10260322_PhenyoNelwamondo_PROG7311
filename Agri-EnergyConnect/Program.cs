@@ -19,23 +19,23 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = true;
 })
-.AddRoles<IdentityRole>()  // This enables role management
+.AddRoles<IdentityRole>()  
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-// Add authorization policies if needed
+
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAdminRole",
         policy => policy.RequireRole("Admin"));
 });
 
-// MVC Services
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Middleware Pipeline
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -50,11 +50,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-// Authentication & Authorization
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Database Seeding
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -64,10 +63,10 @@ using (var scope = app.Services.CreateScope())
         var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-        // Ensure database is created and migrations are applied
+        
         await context.Database.MigrateAsync();
 
-        // Seed roles
+        
         string[] roleNames = { "Farmer", "Employee" };
         foreach (var roleName in roleNames)
         {
@@ -77,7 +76,7 @@ using (var scope = app.Services.CreateScope())
             }
         }
 
-        // Your existing seeding logic here (if any)
+        
         await SeedData.Initialize(services);
     }
     catch (Exception ex)
@@ -87,11 +86,11 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Endpoints
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapRazorPages();  // Important for Identity pages
+app.MapRazorPages();  
 
 app.Run();
