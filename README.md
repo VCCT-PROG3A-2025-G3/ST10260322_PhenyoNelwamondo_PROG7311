@@ -56,5 +56,19 @@ Setup Steps
 
 Default Accounts:
 
+1. Farmer:
+      Username:
+      Password:
+
+2. Employee
+      Username:
+      Password:
+
+But A farmer profile can also be created in the employee dashboard, but a farmer can also just register.
+
+
+References:
+
+
    
    
