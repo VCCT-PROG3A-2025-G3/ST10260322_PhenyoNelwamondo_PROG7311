@@ -7,38 +7,37 @@ using Agri_EnergyConnect.Data;
 
 namespace Agri_EnergyConnect.Controllers
 {
-    [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Employee")] //This ensures only users with the role of employee can access the logic in this controller:
     public class EmployeeController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager; //Can now do user operations
+        private readonly ApplicationDbContext _context; //Can now link the database with the actions in this controller
 
-        public EmployeeController(
-            UserManager<ApplicationUser> userManager,
-            ApplicationDbContext context)
+        //This is the constructor for this controller:
+        public EmployeeController(UserManager<ApplicationUser> userManager,ApplicationDbContext context)
         {
             _userManager = userManager;
             _context = context;
         }
 
-        // GET: Employee Dashboard
+        
         public IActionResult Index()
         {
             return View();
         }
 
-        // GET: Add Farmer Form
+        
         [HttpGet]
         public IActionResult AddFarmer()
         {
             var model = new RegisterViewModel
             {
-                Role = "Farmer" // Default role for this form
+                Role = "Farmer" //Because we need to add a famer role this will by default be farmere
             };
             return View(model);
         }
 
-        // POST: Add New Farmer
+        
         [HttpPost]
         public async Task<IActionResult> AddFarmer(RegisterViewModel model)
         {
@@ -47,7 +46,7 @@ namespace Agri_EnergyConnect.Controllers
                 // Force the role to be Farmer
                 model.Role = "Farmer";
 
-                // Check if email already exists
+                // Check if email already exists 
                 var existingUser = await _userManager.FindByEmailAsync(model.Email);
                 if (existingUser != null)
                 {
@@ -55,7 +54,7 @@ namespace Agri_EnergyConnect.Controllers
                     return View(model);
                 }
 
-                // Create new user
+                // Create new user (This happens if it can confirm email is not the same)
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -74,7 +73,7 @@ namespace Agri_EnergyConnect.Controllers
                     return RedirectToAction("Index", "Employee");
                 }
 
-                // Add errors if any
+                
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -84,7 +83,9 @@ namespace Agri_EnergyConnect.Controllers
             return View(model);
         }
 
-        // GET: Select Farmer to View Products
+
+
+        //This is gets teh view for a employee veing able to view a specific farmers products
         [HttpGet]
         public async Task<IActionResult> SelectFarmer()
         {
@@ -92,34 +93,34 @@ namespace Agri_EnergyConnect.Controllers
             return View(new FarmerProductsViewModel { Farmers = farmers.ToList() });
         }
 
-        // GET: View Products for Specific Farmer
+        //This gets the view for that specific farmers products.
         [HttpGet]
         public async Task<IActionResult> ViewFarmerProducts(
             string farmerId,
-            string category = null,
+            string category = null, //The null ensures that it is optional
             DateTime? startDate = null,
             DateTime? endDate = null)
         {
-            // Validate farmerId
+            
             if (string.IsNullOrEmpty(farmerId))
             {
                 return RedirectToAction("SelectFarmer");
             }
 
-            // Get farmer
+            //Gets the farmer that was selected
             var farmer = await _userManager.FindByIdAsync(farmerId);
             if (farmer == null)
             {
                 return NotFound();
             }
 
-            // Base query for farmer's products
+            //Shows the products for the farmer
             var query = _context.Products
                 .Where(p => p.UserId == farmerId)
                 .Include(p => p.User)
                 .AsQueryable();
 
-            // Apply filters
+            // This is the code which applies all the filters category and date
             if (!string.IsNullOrEmpty(category))
             {
                 query = query.Where(p => p.Category == category);
@@ -135,17 +136,17 @@ namespace Agri_EnergyConnect.Controllers
                 query = query.Where(p => p.ProductionDate <= endDate.Value);
             }
 
-            // Get available categories for this farmer
+            
             var categories = await _context.Products
                 .Where(p => p.UserId == farmerId)
                 .Select(p => p.Category)
                 .Distinct()
                 .ToListAsync();
 
-            // Get all farmers for dropdown
+            
             var farmers = await _userManager.GetUsersInRoleAsync("Farmer");
 
-            // Prepare view model
+            
             var model = new FarmerProductsViewModel
             {
                 SelectedFarmerId = farmerId,
@@ -163,19 +164,19 @@ namespace Agri_EnergyConnect.Controllers
             return View(model);
         }
 
-        // GET: View All Products from All Farmers
+        //This gets the manage products view (Essentially shows all the products that are in teh database)
         [HttpGet]
         public async Task<IActionResult> ManageProducts(
             string category = null,
             DateTime? startDate = null,
             DateTime? endDate = null)
         {
-            // Base query with farmer information
+            
             var query = _context.Products
-                .Include(p => p.User)  // Include farmer information
+                .Include(p => p.User)  // Include farmer information so it can show who owns the product
                 .AsQueryable();
 
-            // Apply filters
+
             if (!string.IsNullOrEmpty(category))
             {
                 query = query.Where(p => p.Category == category);
@@ -191,13 +192,13 @@ namespace Agri_EnergyConnect.Controllers
                 query = query.Where(p => p.ProductionDate <= endDate.Value);
             }
 
-            // Get distinct categories for dropdown
+            //Get categories that have already been used
             var categories = await _context.Products
                 .Select(p => p.Category)
                 .Distinct()
                 .ToListAsync();
 
-            // Prepare view model
+            
             var model = new ProductManagementViewModel
             {
                 Category = category,

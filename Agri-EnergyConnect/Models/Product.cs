@@ -21,6 +21,6 @@ namespace Agri_EnergyConnect.Models
         [ForeignKey("User")]
         public string UserId { get; set; }
 
-        public ApplicationUser User { get; set; } // Changed from IdentityUser to ApplicationUser
+        public ApplicationUser User { get; set; } 
     }
 }
