@@ -57,12 +57,12 @@ Setup Steps
 Default Accounts:
 
 1. Farmer:
-      Username:
-      Password:
+      Username: Messi@gmail.com
+      Password: Messi123
 
 2. Employee
-      Username:
-      Password:
+      Username: PepGuardiola@gamil.com
+      Password: Pep123Pep123
 
 But A farmer profile can also be created in the employee dashboard, but a farmer can also just register.
 
