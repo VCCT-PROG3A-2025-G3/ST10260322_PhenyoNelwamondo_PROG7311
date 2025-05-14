@@ -50,7 +50,9 @@ Prerequisites
 
 Setup Steps
 1. Clone the repository: https://github.com/ST10260322/Agri-EnergyConnect.git
-2. Run the application
+2. Open Visual Studio Code
+3. Restore Nuget Packages and then build the project 
+4. Run the application
 
 
 
@@ -65,7 +67,9 @@ Default Accounts:
       Password: Pep123Pep123
 
 Note:
-A farmer profile can regitster from the home page like an employee, but the functionality on the rupric that an employee must be able to create a farmer prodile is also on the app. Therefore in this program there are 2 ways that a Farmer can be registred.
+* Farmers can register from the home page.
+* However, based on rubric requirements, employees also have the ability to create farmer profiles from within the system.
+* This dual registration functionality ensures flexibility and demonstrates the full scope of the application's features.
 
 
 References:
