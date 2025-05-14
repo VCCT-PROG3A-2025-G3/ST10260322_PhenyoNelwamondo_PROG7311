@@ -90,7 +90,7 @@ namespace Agri_EnergyConnect.Controllers
             return View(new FarmerProductsViewModel
             {
                 Farmers = farmers.ToList(),
-                ProductFilter = new ProductFilterViewModel() // Initialize this to prevent null reference
+                ProductFilter = new ProductFilterViewModel() 
             });
         }
 
@@ -98,10 +98,10 @@ namespace Agri_EnergyConnect.Controllers
         //This is gets teh view for a employee veing able to view a specific farmers products
         [HttpGet]
         public async Task<IActionResult> ViewFarmerProducts(
-    string farmerId,
-    string category = null,
-    DateTime? startDate = null,
-    DateTime? endDate = null)
+        string farmerId,
+        string category = null,
+        DateTime? startDate = null,
+        DateTime? endDate = null)
         {
             if (string.IsNullOrEmpty(farmerId))
             {
@@ -111,7 +111,7 @@ namespace Agri_EnergyConnect.Controllers
             var farmer = await _userManager.FindByIdAsync(farmerId);
             if (farmer == null) return NotFound();
 
-            // Create base query with include
+            
             IQueryable<Product> query = _context.Products
                 .Include(p => p.User)
                 .Where(p => p.UserId == farmerId);
