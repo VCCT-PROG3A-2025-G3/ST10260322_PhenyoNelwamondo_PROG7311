@@ -25,6 +25,8 @@ namespace Agri_EnergyConnect.Controllers
             _userManager = userManager;   
         }
 
+
+        //This is the method which ensures the users products are listed in the farmer dashboard
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -41,17 +43,22 @@ namespace Agri_EnergyConnect.Controllers
             return View(products);
         }
 
+
+        //Brings the view where the user can input their products
         [HttpGet]
         public IActionResult AddProduct()
         {
             return View();
         }
 
+
+
+        //This submits the form to add a product into the database.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProduct([Bind("Name,Category,ProductionDate")] Product productInput)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Checks if the form is filled in correctly then the following wil happen
             {
                 try
                 {
@@ -66,7 +73,7 @@ namespace Agri_EnergyConnect.Controllers
                         UserId = user.Id
                     };
 
-                    _context.Products.Add(product);
+                    _context.Products.Add(product); //This adds the product to the database.
                     await _context.SaveChangesAsync();
 
                     return RedirectToAction(nameof(Index));

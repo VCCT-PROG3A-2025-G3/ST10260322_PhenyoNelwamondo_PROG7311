@@ -6,11 +6,8 @@
 <div class="container">
     <h2>Add New Product</h2>
 
-    <!-- Improved validation summary -->
-    <div class="alert alert-danger @(ViewData.ModelState.IsValid ? "d-none" : "")">
-        <h5>Please fix these errors:</h5>
-        <div asp-validation-summary="All"></div>
-    </div>
+    <!-- Simplified validation summary (only shows when needed) -->
+    <div asp-validation-summary="All" class="alert alert-danger @(ViewData.ModelState.IsValid ? "d-none" : "")"></div>
 
     <form asp-action="AddProduct" method="post">
         <div class="form-group mb-3">
@@ -37,16 +34,14 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
 
     <script>
-        // Set default date to today
-        document.addEventListener('DOMContentLoaded', function() {
-            const dateInput = document.querySelector('#ProductionDate');
+        // Set default date to today (simplified)
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('ProductionDate');
             if (dateInput && !dateInput.value) {
-                dateInput.value = new Date().toISOString().split('T')[0];
+                dateInput.valueAsDate = new Date();
             }
         });
     </script>

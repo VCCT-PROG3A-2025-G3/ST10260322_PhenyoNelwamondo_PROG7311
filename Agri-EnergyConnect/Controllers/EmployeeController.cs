@@ -83,44 +83,40 @@ namespace Agri_EnergyConnect.Controllers
             return View(model);
         }
 
-
-
-        //This is gets teh view for a employee veing able to view a specific farmers products
         [HttpGet]
         public async Task<IActionResult> SelectFarmer()
         {
             var farmers = await _userManager.GetUsersInRoleAsync("Farmer");
-            return View(new FarmerProductsViewModel { Farmers = farmers.ToList() });
+            return View(new FarmerProductsViewModel
+            {
+                Farmers = farmers.ToList(),
+                ProductFilter = new ProductFilterViewModel() // Initialize this to prevent null reference
+            });
         }
 
-        //This gets the view for that specific farmers products.
+
+        //This is gets teh view for a employee veing able to view a specific farmers products
         [HttpGet]
         public async Task<IActionResult> ViewFarmerProducts(
-            string farmerId,
-            string category = null, //The null ensures that it is optional
-            DateTime? startDate = null,
-            DateTime? endDate = null)
+    string farmerId,
+    string category = null,
+    DateTime? startDate = null,
+    DateTime? endDate = null)
         {
-            
             if (string.IsNullOrEmpty(farmerId))
             {
                 return RedirectToAction("SelectFarmer");
             }
 
-            //Gets the farmer that was selected
             var farmer = await _userManager.FindByIdAsync(farmerId);
-            if (farmer == null)
-            {
-                return NotFound();
-            }
+            if (farmer == null) return NotFound();
 
-            //Shows the products for the farmer
-            var query = _context.Products
-                .Where(p => p.UserId == farmerId)
+            // Create base query with include
+            IQueryable<Product> query = _context.Products
                 .Include(p => p.User)
-                .AsQueryable();
+                .Where(p => p.UserId == farmerId);
 
-            // This is the code which applies all the filters category and date
+            // Apply filters
             if (!string.IsNullOrEmpty(category))
             {
                 query = query.Where(p => p.Category == category);
@@ -136,18 +132,15 @@ namespace Agri_EnergyConnect.Controllers
                 query = query.Where(p => p.ProductionDate <= endDate.Value);
             }
 
-            
             var categories = await _context.Products
                 .Where(p => p.UserId == farmerId)
                 .Select(p => p.Category)
                 .Distinct()
                 .ToListAsync();
 
-            
             var farmers = await _userManager.GetUsersInRoleAsync("Farmer");
 
-            
-            var model = new FarmerProductsViewModel
+            return View(new FarmerProductsViewModel
             {
                 SelectedFarmerId = farmerId,
                 Farmers = farmers.ToList(),
@@ -159,9 +152,7 @@ namespace Agri_EnergyConnect.Controllers
                     Products = await query.ToListAsync(),
                     Categories = categories
                 }
-            };
-
-            return View(model);
+            });
         }
 
         //This gets the manage products view (Essentially shows all the products that are in teh database)
