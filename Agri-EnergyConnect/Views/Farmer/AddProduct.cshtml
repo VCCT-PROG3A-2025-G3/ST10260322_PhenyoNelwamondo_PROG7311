@@ -6,7 +6,7 @@
 <div class="container">
     <h2>Add New Product</h2>
 
-    <!-- Simplified validation summary (only shows when needed) -->
+    
     <div asp-validation-summary="All" class="alert alert-danger @(ViewData.ModelState.IsValid ? "d-none" : "")"></div>
 
     <form asp-action="AddProduct" method="post">
@@ -37,7 +37,7 @@
     <partial name="_ValidationScriptsPartial" />
 
     <script>
-        // Set default date to today (simplified)
+        
         document.addEventListener('DOMContentLoaded', () => {
             const dateInput = document.getElementById('ProductionDate');
             if (dateInput && !dateInput.value) {

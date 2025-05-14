@@ -5,7 +5,7 @@
 }
 
 <div class="container mt-4">
-    <!-- Header with farmer name and back button -->
+   
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Products for @farmerName</h2>
         <a asp-action="SelectFarmer" class="btn btn-outline-secondary">
@@ -13,7 +13,7 @@
         </a>
     </div>
 
-    <!-- Filter Card -->
+    
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-light">
             <h5 class="mb-0">Filter Products</h5>
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <!-- Products Table -->
+    
     @if (Model.ProductFilter.Products.Any())
     {
         <div class="table-responsive">
@@ -99,13 +99,13 @@
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Set default end date to today if empty
+            
             const endDateField = document.querySelector('[name="endDate"]');
             if (endDateField && !endDateField.value) {
                 endDateField.value = new Date().toISOString().split('T')[0];
             }
 
-            // Set default start date to 30 days before end date if empty
+            
             const startDateField = document.querySelector('[name="startDate"]');
             if (startDateField && !startDateField.value && endDateField.value) {
                 const endDate = new Date(endDateField.value);
