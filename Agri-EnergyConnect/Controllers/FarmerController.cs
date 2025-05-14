@@ -14,18 +14,15 @@ namespace Agri_EnergyConnect.Controllers
     [Authorize(Roles = "Farmer")]
     public class FarmerController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<FarmerController> _logger;
+        private readonly ApplicationDbContext _context; //Links the database so it can be used in this controller
+        private readonly UserManager<ApplicationUser> _userManager; //So i can have user operations
+        
 
-        public FarmerController(
-            ApplicationDbContext context,
-            UserManager<ApplicationUser> userManager,
-            ILogger<FarmerController> logger)
+        //Constructor for this class
+        public FarmerController(ApplicationDbContext context,UserManager<ApplicationUser> userManager)
         {
             _context = context;
-            _userManager = userManager;
-            _logger = logger;
+            _userManager = userManager;   
         }
 
         public async Task<IActionResult> Index()
@@ -33,11 +30,8 @@ namespace Agri_EnergyConnect.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                _logger.LogError("No user found for index view");
-                return Challenge();
+                return Challenge(); 
             }
-
-            _logger.LogInformation("Loading products for {UserId}", user.Id);
 
             var products = await _context.Products
                 .Where(p => p.UserId == user.Id)
@@ -57,16 +51,6 @@ namespace Agri_EnergyConnect.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProduct([Bind("Name,Category,ProductionDate")] Product productInput)
         {
-
-            _logger.LogInformation("ModelState.IsValid: {IsValid}", ModelState.IsValid);
-            _logger.LogInformation("ModelState Errors: {@Errors}",
-                ModelState
-                    .Where(x => x.Value.Errors.Count > 0)
-                    .ToDictionary(
-                        kvp => kvp.Key,
-                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                    ));
-
             if (ModelState.IsValid)
             {
                 try
@@ -79,7 +63,7 @@ namespace Agri_EnergyConnect.Controllers
                         Name = productInput.Name,
                         Category = productInput.Category,
                         ProductionDate = productInput.ProductionDate,
-                        UserId = user.Id // Set programmatically
+                        UserId = user.Id
                     };
 
                     _context.Products.Add(product);
@@ -87,10 +71,9 @@ namespace Agri_EnergyConnect.Controllers
 
                     return RedirectToAction(nameof(Index));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    _logger.LogError(ex, "Error saving product");
-                    ModelState.AddModelError("", "Error saving product");
+                    ModelState.AddModelError("", "An error occurred while saving the product.");
                 }
             }
             return View(productInput);
