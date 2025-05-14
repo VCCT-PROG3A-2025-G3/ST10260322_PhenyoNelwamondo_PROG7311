@@ -64,10 +64,17 @@ Default Accounts:
       Username: PepGuardiola@gamil.com
       Password: Pep123Pep123
 
-But A farmer profile can also be created in the employee dashboard, but a farmer can also just register.
+Note:
+A farmer profile can regitster from the home page like an employee, but the functionality on the rupric that an employee must be able to create a farmer prodile is also on the app. Therefore in this program there are 2 ways that a Farmer can be registred.
 
 
 References:
+https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-9.0&tabs=visual-studio
+https://www.c-sharpcorner.com/article/how-to-create-asp-net-core-mvc-application/
+https://stackoverflow.com/questions/69706819/redirect-login-user-or-admin-to-specific-page-or-view-depending-upon-role-in-asp
+https://learn.microsoft.com/en-us/visualstudio/data-tools/add-new-connections?view=vs-2022
+https://stackoverflow.com/questions/59444186/admin-and-user-login-in-mvc
+https://stackoverflow.com/questions/68987850/how-to-only-display-items-created-by-the-current-logged-in-user-only-in-asp-net
 
 
    
