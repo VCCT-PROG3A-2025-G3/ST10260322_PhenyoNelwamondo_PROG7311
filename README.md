@@ -64,7 +64,8 @@ Default Accounts:
       Username: PepGuardiola@gamil.com
       Password: Pep123Pep123
 
-But A farmer profile can also be created in the employee dashboard, but a farmer can also just register.
+Note:
+A farmer profile can regitster from the home page like an employee, but the functionality on the rupric that an employee must be able to create a farmer prodile is also on the app. Therefore in this program there are 2 ways that a Farmer can be registred.
 
 
 References:
