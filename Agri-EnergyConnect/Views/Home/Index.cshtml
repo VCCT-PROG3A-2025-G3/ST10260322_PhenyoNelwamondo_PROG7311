@@ -2,76 +2,143 @@
     ViewData["Title"] = "Agricultural Connect";
 }
 
-<section class="hero-section text-white" role="banner" aria-label="Introduction">
+<!-- Added a simple navigation bar -->
+<nav class="navbar">
+    <div class="container">
+        <a href="/" class="logo">Agricultural Connect</a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="/Account/Login" class="login-btn">Login</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section text-white">
     <div class="container">
         <div class="hero-content">
-            <div class="hero-text" tabindex="0" aria-describedby="hero-desc">
+            <div class="hero-text">
                 <h1>Connecting Farmers & Energy Experts</h1>
-                <p id="hero-desc" class="lead">A digital ecosystem for sustainable agriculture and renewable energy collaboration.</p>
+                <p class="lead">A digital ecosystem for sustainable agriculture and renewable energy collaboration.</p>
                 <div class="hero-buttons">
-                    <a href="/Account/Register" class="btn btn-primary" role="button">Join Now</a>
-                    <a href="#features" class="btn btn-outline" role="button">Learn More</a>
+                    <a href="/Account/Register" class="btn btn-primary">Join Now</a>
+                    <a href="#features" class="btn btn-outline">Learn More</a>
+                </div>
+                <!-- Added a stats counter -->
+                <div class="stats-counter">
+                    <div class="stat">
+                        <span class="count" data-target="2500">0</span>
+                        <span>Farmers Connected</span>
+                    </div>
+                    <div class="stat">
+                        <span class="count" data-target="1200">0</span>
+                        <span>Energy Experts</span>
+                    </div>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                     alt="Solar panels on a farm in a green field during sunset" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                     alt="Farm with solar panels">
             </div>
         </div>
     </div>
 </section>
 
-<section id="features" class="features-section" role="region" aria-labelledby="features-title">
+<section id="features" class="features-section">
     <div class="container">
-        <h2 id="features-title">Our Platform Features</h2>
+        <h2>Our Platform Features</h2>
+        <p class="section-subtitle">Discover how we're bridging the gap between agriculture and renewable energy</p>
         <div class="features-grid">
-            <div class="feature-card" tabindex="0">
-                <div class="feature-icon" aria-hidden="true">
+            <div class="feature-card">
+                <div class="feature-icon">
                     <i class="bi bi-people-fill"></i>
                 </div>
                 <h3>Collaboration</h3>
                 <p>Connect with farmers and energy experts to share knowledge and resources.</p>
+                <a href="#" class="feature-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-            <div class="feature-card" tabindex="0">
-                <div class="feature-icon" aria-hidden="true">
+            <div class="feature-card">
+                <div class="feature-icon">
                     <i class="bi bi-lightning-charge-fill"></i>
                 </div>
                 <h3>Energy Solutions</h3>
                 <p>Discover renewable energy options tailored for agricultural needs.</p>
+                <a href="#" class="feature-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-            <div class="feature-card" tabindex="0">
-                <div class="feature-icon" aria-hidden="true">
+            <div class="feature-card">
+                <div class="feature-icon">
                     <i class="bi bi-graph-up"></i>
                 </div>
                 <h3>Sustainability</h3>
                 <p>Implement eco-friendly practices that increase productivity and reduce costs.</p>
+                <a href="#" class="feature-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>
 </section>
 
-<section class="testimonials-section" role="region" aria-labelledby="testimonials-title">
+<!-- Added a how-it-works section -->
+<section class="steps-section">
     <div class="container">
-        <h2 id="testimonials-title">What Our Users Say</h2>
+        <h2>How It Works</h2>
+        <p class="section-subtitle">Get started in just a few simple steps</p>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Create Your Profile</h3>
+                <p>Tell us about your farm or expertise</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Connect</h3>
+                <p>Find relevant partners in our network</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Collaborate</h3>
+                <p>Start working on sustainable solutions</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="testimonials" class="testimonials-section">
+    <div class="container">
+        <h2>What Our Users Say</h2>
+        <p class="section-subtitle">Hear from farmers and experts using our platform</p>
         <div class="testimonials-grid">
-            <div class="testimonial-card" tabindex="0">
+            <div class="testimonial-card">
                 <div class="testimonial-header">
                     <img src="https://randomuser.me/api/portraits/women/32.jpg"
-                         alt="Portrait of Sarah Johnson, a farmer" loading="lazy" />
+                         alt="Sarah Johnson">
                     <div>
                         <h4>Sarah Johnson</h4>
                         <p class="role">Farmer</p>
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
                     </div>
                 </div>
                 <p>"This platform helped me find the perfect solar solution for my farm. Reduced my energy costs by 40%!"</p>
             </div>
-            <div class="testimonial-card" tabindex="0">
+            <div class="testimonial-card">
                 <div class="testimonial-header">
                     <img src="https://randomuser.me/api/portraits/men/45.jpg"
-                         alt="Portrait of Michael Chen, energy consultant" loading="lazy" />
+                         alt="Michael Chen">
                     <div>
                         <h4>Michael Chen</h4>
                         <p class="role">Energy Consultant</p>
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
                     </div>
                 </div>
                 <p>"Finally a platform where I can directly connect with farmers who need renewable energy solutions."</p>
@@ -80,16 +147,48 @@
     </div>
 </section>
 
-<section class="cta-section" role="region" aria-labelledby="cta-title">
+<section class="cta-section">
     <div class="container">
-        <h2 id="cta-title">Ready to Join Our Community?</h2>
+        <h2>Ready to Join Our Community?</h2>
         <p class="cta-text">Thousands of farmers and energy experts are already collaborating.</p>
-        <a href="/Account/Register" class="btn btn-primary" role="button">Get Started</a>
+        <div class="cta-buttons">
+            <a href="/Account/Register" class="btn btn-primary">Get Started</a>
+            <a href="/Account/Login" class="btn btn-outline">Already a member? Login</a>
+        </div>
     </div>
 </section>
 
+<!-- Added a simple footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>Agricultural Connect</h3>
+                <p>Bridging the gap between agriculture and renewable energy for a sustainable future.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="/Account/Register">Register</a></li>
+                    <li><a href="/Account/Login">Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>info@agriculturalconnect.com</p>
+                <p>+1 (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; @DateTime.Now.Year Agricultural Connect. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
 @section Styles {
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
             --primary: #28a745;
@@ -98,13 +197,15 @@
             --dark: #343a40;
             --gray: #6c757d;
             --white: #ffffff;
+            --light-gray: #e9ecef;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--dark);
-            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
         }
 
         h1, h2, h3, h4 {
@@ -119,6 +220,60 @@
             padding: 0 1.5rem;
         }
 
+        /* Navigation */
+        .navbar {
+            background-color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+            .navbar .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+            .nav-links a {
+                color: var(--dark);
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s;
+            }
+
+                .nav-links a:hover {
+                    color: var(--primary);
+                }
+
+        .login-btn {
+            padding: 0.5rem 1.5rem;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 0.375rem;
+            transition: background-color 0.3s;
+        }
+
+            .login-btn:hover {
+                background-color: var(--primary-dark);
+                color: var(--white);
+            }
+
+        /* Buttons */
         .btn {
             display: inline-block;
             padding: 0.75rem 1.5rem;
@@ -127,7 +282,7 @@
             text-align: center;
             text-decoration: none;
             transition: all 0.3s ease;
-            outline-offset: 3px;
+            cursor: pointer;
         }
 
         .btn-primary {
@@ -136,12 +291,11 @@
             border: 2px solid var(--primary);
         }
 
-            .btn-primary:hover,
-            .btn-primary:focus-visible {
+            .btn-primary:hover {
                 background-color: var(--primary-dark);
                 border-color: var(--primary-dark);
                 transform: translateY(-2px);
-                outline: 2px solid var(--white);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
 
         .btn-outline {
@@ -150,31 +304,28 @@
             border: 2px solid var(--white);
         }
 
-            .btn-outline:hover,
-            .btn-outline:focus-visible {
+            .btn-outline:hover {
                 background-color: rgba(255, 255, 255, 0.1);
                 transform: translateY(-2px);
-                outline: 2px solid var(--white);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
 
+        /* Hero Section */
         .hero-section {
-            background: linear-gradient(rgba(40, 167, 69, 0.9), rgba(40, 167, 69, 0.9)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(40, 167, 69, 0.9), rgba(40, 167, 69, 0.9)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
-            padding: 5rem 0;
+            padding: 6rem 0 5rem;
         }
 
         .hero-content {
             display: flex;
             align-items: center;
             gap: 3rem;
-            animation: fadeInUp 1s ease forwards;
         }
 
         .hero-text {
             flex: 1;
-            opacity: 0;
-            animation: fadeIn 1.2s ease forwards 0.3s;
         }
 
             .hero-text h1 {
@@ -192,36 +343,65 @@
         .hero-buttons {
             display: flex;
             gap: 1rem;
+            margin-bottom: 2rem;
         }
 
         .hero-image {
             flex: 1;
-            opacity: 0;
-            animation: fadeIn 1.2s ease forwards 0.6s;
         }
 
             .hero-image img {
                 width: 100%;
-                max-height: 350px;
-                object-fit: cover;
                 border-radius: 0.5rem;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             }
 
+        /* Stats Counter */
+        .stats-counter {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .count {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat span:last-child {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Section Titles */
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features Section */
         .features-section {
             padding: 5rem 0;
             background-color: var(--white);
-            border-top: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
         }
 
             .features-section h2 {
                 text-align: center;
-                margin-bottom: 3rem;
+                margin-bottom: 1rem;
                 font-size: 2.5rem;
                 color: var(--dark);
-                opacity: 0;
-                animation: fadeIn 1.2s ease forwards 0.5s;
             }
 
         .features-grid {
@@ -237,14 +417,13 @@
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: default;
+            border: 1px solid var(--light-gray);
         }
 
-            .feature-card:hover,
-            .feature-card:focus-within {
+            .feature-card:hover {
                 transform: translateY(-10px);
                 box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-                outline: none;
+                border-color: var(--primary);
             }
 
         .feature-icon {
@@ -258,6 +437,11 @@
             align-items: center;
             justify-content: center;
             font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotate(15deg) scale(1.1);
         }
 
         .feature-card h3 {
@@ -267,16 +451,98 @@
 
         .feature-card p {
             color: var(--gray);
+            margin-bottom: 1.5rem;
         }
 
-        .testimonials-section {
+        .feature-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+            .feature-link:hover {
+                color: var(--primary-dark);
+            }
+
+        /* Steps Section */
+        .steps-section {
             padding: 5rem 0;
             background-color: var(--light);
         }
 
+            .steps-section h2 {
+                text-align: center;
+                margin-bottom: 1rem;
+                font-size: 2.5rem;
+                color: var(--dark);
+            }
+
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+            .step:not(:last-child)::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: -1rem;
+                width: 2rem;
+                height: 2rem;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2328a745' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: center;
+                transform: translateY(-50%);
+            }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .step p {
+            color: var(--gray);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
             .testimonials-section h2 {
                 text-align: center;
-                margin-bottom: 3rem;
+                margin-bottom: 1rem;
                 font-size: 2.5rem;
                 color: var(--dark);
             }
@@ -292,15 +558,13 @@
             border-radius: 0.5rem;
             padding: 2rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-            cursor: default;
+            border: 1px solid var(--light-gray);
+            transition: transform 0.3s ease;
         }
 
-            .testimonial-card:hover,
-            .testimonial-card:focus-within {
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            .testimonial-card:hover {
                 transform: translateY(-5px);
-                outline: none;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             }
 
         .testimonial-header {
@@ -327,11 +591,30 @@
                 font-size: 0.9rem;
             }
 
+        .rating {
+            color: #ffc107;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
         .testimonial-card p {
             color: var(--dark);
             font-style: italic;
+            position: relative;
+            padding-left: 1.5rem;
         }
 
+            .testimonial-card p::before {
+                content: '"';
+                font-size: 3rem;
+                color: var(--primary);
+                opacity: 0.2;
+                position: absolute;
+                left: -0.5rem;
+                top: -1rem;
+            }
+
+        /* CTA Section */
         .cta-section {
             padding: 5rem 0;
             background-color: var(--primary);
@@ -348,64 +631,190 @@
             font-size: 1.25rem;
             margin-bottom: 2rem;
             opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        @@keyframes fadeIn {
-            to
-
-        {
-            opacity: 1;
-        }
-
-        }
-
-        @@keyframes fadeInUp {
-            from
-
-        {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        }
-
-        
-        @@media (max-width: 992px) {
-            .hero-content
-
-        {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .hero-buttons {
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .hero-text h1 {
-            font-size: 2.5rem;
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
         }
 
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+            .footer-links a:hover {
+                color: var(--white);
+            }
+
+        .footer-contact p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @@media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-buttons,
+            .stats-counter {
+                justify-content: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .step:not(:last-child)::after {
+                display: none;
+            }
         }
 
         @@media (max-width: 768px) {
-            .hero-text h1
+            .hero-text h1 {
+                font-size: 2rem;
+            }
 
-        {
-            font-size: 2rem;
+            .features-section h2,
+            .testimonials-section h2,
+            .cta-section h2,
+            .steps-section h2 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
         }
 
-        .features-section h2,
-        .testimonials-section h2,
-        .cta-section h2 {
-            font-size: 2rem;
-        }
+        @@media (max-width: 576px) {
+            .navbar .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
 
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .stats-counter {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
     </style>
+}
+
+@section Scripts {
+    <script>
+        // Simple counter animation for stats
+        document.addEventListener('DOMContentLoaded', function () {
+            const counters = document.querySelectorAll('.count');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target;
+                }
+
+                function updateCount() {
+                    const currentCount = +counter.innerText;
+                    if (currentCount < target) {
+                        counter.innerText = Math.ceil(currentCount + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 }
