@@ -2,46 +2,45 @@
     ViewData["Title"] = "Agricultural Connect";
 }
 
-
-<section class="hero-section text-white">
+<section class="hero-section text-white" role="banner" aria-label="Introduction">
     <div class="container">
         <div class="hero-content">
-            <div class="hero-text">
+            <div class="hero-text" tabindex="0" aria-describedby="hero-desc">
                 <h1>Connecting Farmers & Energy Experts</h1>
-                <p class="lead">A digital ecosystem for sustainable agriculture and renewable energy collaboration.</p>
+                <p id="hero-desc" class="lead">A digital ecosystem for sustainable agriculture and renewable energy collaboration.</p>
                 <div class="hero-buttons">
-                    <a href="/Account/Register" class="btn btn-primary">Join Now</a>
-                    <a href="#features" class="btn btn-outline">Learn More</a>
+                    <a href="/Account/Register" class="btn btn-primary" role="button">Join Now</a>
+                    <a href="#features" class="btn btn-outline" role="button">Learn More</a>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                     alt="Farm with solar panels">
+                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                     alt="Solar panels on a farm in a green field during sunset" loading="lazy" />
             </div>
         </div>
     </div>
 </section>
 
-<section id="features" class="features-section">
+<section id="features" class="features-section" role="region" aria-labelledby="features-title">
     <div class="container">
-        <h2>Our Platform Features</h2>
+        <h2 id="features-title">Our Platform Features</h2>
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
+            <div class="feature-card" tabindex="0">
+                <div class="feature-icon" aria-hidden="true">
                     <i class="bi bi-people-fill"></i>
                 </div>
                 <h3>Collaboration</h3>
                 <p>Connect with farmers and energy experts to share knowledge and resources.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
+            <div class="feature-card" tabindex="0">
+                <div class="feature-icon" aria-hidden="true">
                     <i class="bi bi-lightning-charge-fill"></i>
                 </div>
                 <h3>Energy Solutions</h3>
                 <p>Discover renewable energy options tailored for agricultural needs.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
+            <div class="feature-card" tabindex="0">
+                <div class="feature-icon" aria-hidden="true">
                     <i class="bi bi-graph-up"></i>
                 </div>
                 <h3>Sustainability</h3>
@@ -51,15 +50,14 @@
     </div>
 </section>
 
-
-<section class="testimonials-section">
+<section class="testimonials-section" role="region" aria-labelledby="testimonials-title">
     <div class="container">
-        <h2>What Our Users Say</h2>
+        <h2 id="testimonials-title">What Our Users Say</h2>
         <div class="testimonials-grid">
-            <div class="testimonial-card">
+            <div class="testimonial-card" tabindex="0">
                 <div class="testimonial-header">
                     <img src="https://randomuser.me/api/portraits/women/32.jpg"
-                         alt="Sarah Johnson">
+                         alt="Portrait of Sarah Johnson, a farmer" loading="lazy" />
                     <div>
                         <h4>Sarah Johnson</h4>
                         <p class="role">Farmer</p>
@@ -67,10 +65,10 @@
                 </div>
                 <p>"This platform helped me find the perfect solar solution for my farm. Reduced my energy costs by 40%!"</p>
             </div>
-            <div class="testimonial-card">
+            <div class="testimonial-card" tabindex="0">
                 <div class="testimonial-header">
                     <img src="https://randomuser.me/api/portraits/men/45.jpg"
-                         alt="Michael Chen">
+                         alt="Portrait of Michael Chen, energy consultant" loading="lazy" />
                     <div>
                         <h4>Michael Chen</h4>
                         <p class="role">Energy Consultant</p>
@@ -82,18 +80,17 @@
     </div>
 </section>
 
-<section class="cta-section">
+<section class="cta-section" role="region" aria-labelledby="cta-title">
     <div class="container">
-        <h2>Ready to Join Our Community?</h2>
+        <h2 id="cta-title">Ready to Join Our Community?</h2>
         <p class="cta-text">Thousands of farmers and energy experts are already collaborating.</p>
-        <a href="/Account/Register" class="btn btn-primary">Get Started</a>
+        <a href="/Account/Register" class="btn btn-primary" role="button">Get Started</a>
     </div>
 </section>
 
 @section Styles {
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
-        
         :root {
             --primary: #28a745;
             --primary-dark: #218838;
@@ -107,6 +104,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--dark);
+            scroll-behavior: smooth;
         }
 
         h1, h2, h3, h4 {
@@ -121,7 +119,6 @@
             padding: 0 1.5rem;
         }
 
-        
         .btn {
             display: inline-block;
             padding: 0.75rem 1.5rem;
@@ -130,6 +127,7 @@
             text-align: center;
             text-decoration: none;
             transition: all 0.3s ease;
+            outline-offset: 3px;
         }
 
         .btn-primary {
@@ -138,10 +136,12 @@
             border: 2px solid var(--primary);
         }
 
-            .btn-primary:hover {
+            .btn-primary:hover,
+            .btn-primary:focus-visible {
                 background-color: var(--primary-dark);
                 border-color: var(--primary-dark);
                 transform: translateY(-2px);
+                outline: 2px solid var(--white);
             }
 
         .btn-outline {
@@ -150,14 +150,15 @@
             border: 2px solid var(--white);
         }
 
-            .btn-outline:hover {
+            .btn-outline:hover,
+            .btn-outline:focus-visible {
                 background-color: rgba(255, 255, 255, 0.1);
                 transform: translateY(-2px);
+                outline: 2px solid var(--white);
             }
 
-        
         .hero-section {
-            background: linear-gradient(rgba(40, 167, 69, 0.9), rgba(40, 167, 69, 0.9)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(40, 167, 69, 0.9), rgba(40, 167, 69, 0.9)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             padding: 5rem 0;
@@ -167,10 +168,13 @@
             display: flex;
             align-items: center;
             gap: 3rem;
+            animation: fadeInUp 1s ease forwards;
         }
 
         .hero-text {
             flex: 1;
+            opacity: 0;
+            animation: fadeIn 1.2s ease forwards 0.3s;
         }
 
             .hero-text h1 {
@@ -192,18 +196,23 @@
 
         .hero-image {
             flex: 1;
+            opacity: 0;
+            animation: fadeIn 1.2s ease forwards 0.6s;
         }
 
             .hero-image img {
                 width: 100%;
+                max-height: 350px;
+                object-fit: cover;
                 border-radius: 0.5rem;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             }
 
-        
         .features-section {
             padding: 5rem 0;
             background-color: var(--white);
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
         }
 
             .features-section h2 {
@@ -211,6 +220,8 @@
                 margin-bottom: 3rem;
                 font-size: 2.5rem;
                 color: var(--dark);
+                opacity: 0;
+                animation: fadeIn 1.2s ease forwards 0.5s;
             }
 
         .features-grid {
@@ -226,11 +237,14 @@
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
         }
 
-            .feature-card:hover {
+            .feature-card:hover,
+            .feature-card:focus-within {
                 transform: translateY(-10px);
                 box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+                outline: none;
             }
 
         .feature-icon {
@@ -255,7 +269,6 @@
             color: var(--gray);
         }
 
-        
         .testimonials-section {
             padding: 5rem 0;
             background-color: var(--light);
@@ -279,7 +292,16 @@
             border-radius: 0.5rem;
             padding: 2rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            cursor: default;
         }
+
+            .testimonial-card:hover,
+            .testimonial-card:focus-within {
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+                transform: translateY(-5px);
+                outline: none;
+            }
 
         .testimonial-header {
             display: flex;
@@ -310,7 +332,6 @@
             font-style: italic;
         }
 
-        
         .cta-section {
             padding: 5rem 0;
             background-color: var(--primary);
@@ -329,32 +350,62 @@
             opacity: 0.9;
         }
 
-       
+        @@keyframes fadeIn {
+            to
+
+        {
+            opacity: 1;
+        }
+
+        }
+
+        @@keyframes fadeInUp {
+            from
+
+        {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        }
+
+        
         @@media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
+            .hero-content
 
-            .hero-buttons {
-                justify-content: center;
-            }
+        {
+            flex-direction: column;
+            text-align: center;
+        }
 
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
+        .hero-buttons {
+            justify-content: center;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+        }
+
         }
 
         @@media (max-width: 768px) {
-            .hero-text h1 {
-                font-size: 2rem;
-            }
+            .hero-text h1
 
-            .features-section h2,
-            .testimonials-section h2,
-            .cta-section h2 {
-                font-size: 2rem;
-            }
+        {
+            font-size: 2rem;
+        }
+
+        .features-section h2,
+        .testimonials-section h2,
+        .cta-section h2 {
+            font-size: 2rem;
+        }
+
         }
     </style>
 }
